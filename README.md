@@ -60,7 +60,7 @@ def der_private_to_hex(pri_b64: str) -> str:
     pk_info = keys.PrivateKeyInfo.load(der)
     d_native = pk_info['private_key'].parsed['private_key'].native
     hex_str = f'{d_native:064x}' if isinstance(d_native, int) else d_native.hex().rjust(64, '0')
-    return hex_str.lower()
+    return hex_str
 
 
 def der_public_to_hex(pub_b64: str) -> str:
@@ -70,7 +70,7 @@ def der_public_to_hex(pub_b64: str) -> str:
     if pub_bytes[0] == 4:  # 去掉 0x04 前缀
         pub_bytes = pub_bytes[1:]
     hex_str = pub_bytes.hex().rjust(128, '0')
-    return hex_str.lower()
+    return hex_str
 
 
 # ========== 加 / 解密 ==========
@@ -103,8 +103,7 @@ if __name__ == '__main__':
     pri_hex = der_private_to_hex(PRI_B64)
     pub_hex = der_public_to_hex(PUB_B64)
 
-    data = {"method": "qdrz"}
-    data = "hello"
+    data = {"method": "test"}
     cipher = encrypt(pub_hex, data)
     print("cipher:", cipher)
 
